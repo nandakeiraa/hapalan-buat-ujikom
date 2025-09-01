@@ -41,7 +41,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Distribusi hanya boleh dikelola Petugas
     Route::resource('/distribusi', DistribusiController::class);
-});
 
 // ✅ Divisi
 Route::middleware(['auth', 'role:divisi'])->group(function () {
