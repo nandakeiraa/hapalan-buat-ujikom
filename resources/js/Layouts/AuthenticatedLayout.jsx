@@ -30,6 +30,22 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                {/* ✅ Tambah Barang */}
+                                <NavLink
+                                    href={route('barang.index')}
+                                    active={route().current('barang.index')}
+                                >
+                                    Barang
+                                </NavLink>
+
+                                {/* ✅ Tambah Distribusi */}
+                                <NavLink
+                                    href={route('distribusi.index')}
+                                    active={route().current('distribusi.index')}
+                                >
+                                    Distribusi
+                                </NavLink>
                             </div>
                         </div>
 
@@ -133,6 +149,22 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+
+                        {/* ✅ Barang (mobile) */}
+                        <ResponsiveNavLink
+                            href={route('barang.index')}
+                            active={route().current('barang.index')}
+                        >
+                            Barang
+                        </ResponsiveNavLink>
+
+                        {/* ✅ Distribusi (mobile) */}
+                        <ResponsiveNavLink
+                            href={route('distribusi.index')}
+                            active={route().current('distribusi.index')}
+                        >
+                            Distribusi
                         </ResponsiveNavLink>
                     </div>
 

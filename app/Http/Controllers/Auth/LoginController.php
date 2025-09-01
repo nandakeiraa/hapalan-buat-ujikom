@@ -5,38 +5,50 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
+     * Menampilkan form login
      */
-    protected $redirectTo = '/home'; // default, bisa diabaikan
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function showLoginForm()
     {
-        $this->middleware('guest')->except('logout');
+        return view('auth.login');
     }
 
     /**
-     * Override redirect setelah login berhasil
+     * Proses login
      */
-    protected function authenticated(Request $request, $user)
+    public function login(Request $request)
     {
-    return match ($user->role) {
-        'admin'   => redirect()->route('admin.dashboard'),
-        'petugas' => redirect()->route('sarana.dashboard'),
-        default   => redirect()->route('divisi.dashboard'),
-    };
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended(RouteServiceProvider::redirectToBasedOnRole());
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->onlyInput('email');
+    }
+
+    /**
+     * Proses logout
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }
