@@ -10,16 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create(table: 'tasks', callback: function (Blueprint $table): void {
-            $table->id();
-            $table->string(column: 'name'); // nama tugas
-            $table->boolean(column: 'status')->default(value: false); // status tugas
-            $table->integer(colomn: 'priority')->default(value: 3); // priority low/medium/high
-            $table->date(column: 'due_date')->nullable(); // tanggal tugas
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('tasks', function (Blueprint $table) {
+        $table->id();
+        $table->string('nama');
+        $table->string('prioritas')->nullable();
+        $table->date('tanggal')->nullable();
+        $table->boolean('status')->default(false);
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.
