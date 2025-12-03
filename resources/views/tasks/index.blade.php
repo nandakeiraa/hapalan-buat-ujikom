@@ -130,6 +130,12 @@
             ✔
         </a>
 
+        <!-- Tombol edit (ikon pensil) -->
+        <a href="{{ route('tasks.edit', $task->id) }}"
+         style="text-yellow-400 text-xl hover:text-yellow-600; font-size:20px;">
+            ✏️
+        </a>
+
         <!-- Tombol Hapus -->
         <form action="{{ route('tasks.delete', $task->id) }}" method="POST" style="margin:0;">
             @csrf

@@ -32,6 +32,12 @@ class TaskController extends Controller
     }
 
     // Edit tugas
+    public function edit($id)
+{
+    $task = Task::findOrFail($id);
+    return view('tasks.edit', compact('task'));
+}
+
     public function update(Request $request, $id)
     {
         $task = Task::findOrFail($id);
@@ -42,7 +48,7 @@ class TaskController extends Controller
             'tanggal' => $request->tanggal
         ]);
 
-        return redirect()->back()->with('success', 'Tugas berhasil diedit!');
+        return redirect()->route('tasks.index')->with('success', 'Tugas berhasil diedit!');
     }
 
     // Tandai selesai
